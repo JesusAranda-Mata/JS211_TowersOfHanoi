@@ -22,7 +22,14 @@ let stacks = {
   c: []
 };
 
-// Start here. What is this function doing?
+//console.log(stacks['a']);
+//console.log(stacks.a[0]); //---- Properly accessing the array.
+//Making sure the proper methods is going to be use -----------
+  //---------------let cordinates = stacks.a.slice(1, 1)
+//console.log(cordinates); ----> 3
+
+// Start here. What is this function doing? 
+// This function is logging a visual representation of the stacks object.-------- 
 const printStacks = () => {
   console.log("a: " + stacks.a);
   console.log("b: " + stacks.b);
@@ -30,21 +37,63 @@ const printStacks = () => {
 }
 
 // Next, what do you think this function should do?
-const movePiece = () => {
+/*
+*User will input startStack which will splice the array according with the input
+*isLegal will check if the input move is correct
+*if move is permitted endStack will push the key value according with the input value
+*checkForWin will check if "win" or game continues(this function might be move to the towerOfHanoi function)  
+*/
+const movePiece = (startStack, endStack) => {
+  //!----.shift() method to remove the first item in the array.--the first key value will not always be the desire piece
+  //!----.unshift() method to remove the first item in the array.
+  //----.splice() The splice() method changes the contents of an array by removing or replacing 
+  //existing elements and/or adding new elements in place.
   // Your code here
-
+  for(let move = 0; isLegal = true; move++){
+    if(startStack == )
+  }
 }
+
+// let a = stacks[a]
+// let b = stacks[b]
+// let c = stacks[c]
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = () => {
+/**
+ * the startStack is graving the value of from a key 
+ * the endStack is pushing the value from startStack is to a new array
+ * the startStack most always be greater then endStark except for zero
+ * If move is allow check for win
+ * if not allow request a legal move 
+ */
+const isLegal = (startStack, endStack) => {
   // Your code here
-
+  if (startStack <= 4 && endStack > startStack){
+    checkForWin()
+    return true
+  }
+  else
+  {
+    console.log("that is not a legal move, try again!");
+    getPrompt()
+    return false
 }
+}
+
+let isLegal = isLegal();
 
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
   // Your code here
-
+  if((stacks.a[0] == 4 && stacks.a[1] == 3 && stacks.a[2] == 2 && stacks.a[3] == 1) || 
+     (stacks.b[0] == 4 && stacks.b[1] == 3 && stacks.b[2] == 2 && stacks.b[3] == 1) ||
+     (stacks.c[0] == 4 && stacks.c[1] == 3 && stacks.c[2] == 2 && stacks.c[3] == 1)) {
+      console.log("You Won!!!!!"); 
+      return true
+     }
+     else {
+       return false
+     }
 }
 
 // When is this function called? What should it do with its argument?
