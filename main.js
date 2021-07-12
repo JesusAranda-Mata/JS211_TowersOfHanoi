@@ -22,11 +22,11 @@ let stacks = {
   c: []
 };
 
+
+
 //console.log(stacks['a']);
 //console.log(stacks.a[0]); //---- Properly accessing the array.
-//Making sure the proper methods is going to be use -----------
-  //---------------let cordinates = stacks.a.slice(1, 1)
-//console.log(cordinates); ----> 3
+
 
 // Start here. What is this function doing? 
 // This function is logging a visual representation of the stacks object.-------- 
@@ -35,24 +35,39 @@ const printStacks = () => {
   console.log("b: " + stacks.b);
   console.log("c: " + stacks.c);
 }
+/*--------------------Lost the wrong problem but practice -----------------------------
+//Loops the a,b,c keys
+const threeArrays = () => {
+for(let i = 0; i<stacks.length; i++) {
+  let place = stacks[i];
+  console.log('log the arrays inside the stacks', i)
+  //console.log("what does place print" + place)
+
+//Loops inside the a,b,c keys.
+for (let pv = 0; pv < place.length; pv++){
+  let Value = place[pv];
+  console.log("Inside the inner array loop, pv: ", pv, "place: ", Value)
+}
+}
+------------------------------------------------------------------------*/
 
 // Next, what do you think this function should do?
 /*
-*User will input startStack which will splice the array according with the input
-*isLegal will check if the input move is correct
-*if move is permitted endStack will push the key value according with the input value
-*checkForWin will check if "win" or game continues(this function might be move to the towerOfHanoi function)  
+* 
 */
 const movePiece = (startStack, endStack) => {
-  //!----.shift() method to remove the first item in the array.--the first key value will not always be the desire piece
-  //!----.unshift() method to remove the first item in the array.
-  //----.splice() The splice() method changes the contents of an array by removing or replacing 
-  //existing elements and/or adding new elements in place.
-  // Your code here
-  for(let move = 0; isLegal = true; move++){
-    if(startStack == )
-  }
+  //Code here
+  startStack = stacks[startStack]
+  //console.log("start" + startStack);
+  endStack = stacks[endStack]
+  //console.log("end" + endStack);
+  let fromMove = startStack.pop()
+  //console.log("the last value of an array" + fromMove);
+  endStack.push(fromMove)
+  //console.log(toMove);
 }
+
+
 
 // let a = stacks[a]
 // let b = stacks[b]
@@ -60,27 +75,41 @@ const movePiece = (startStack, endStack) => {
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
 /**
- * the startStack is graving the value of from a key 
- * the endStack is pushing the value from startStack is to a new array
- * the startStack most always be greater then endStark except for zero
  * If move is allow check for win
  * if not allow request a legal move 
  */
 const isLegal = (startStack, endStack) => {
   // Your code here
-  if (startStack <= 4 && endStack > startStack){
-    checkForWin()
-    return true
-  }
-  else
-  {
-    console.log("that is not a legal move, try again!");
-    getPrompt()
-    return false
+  startStack = stacks[startStack]
+  //console.log("this is the startStack" + startStack);
+  //console.log(startStack.length);
+  let startLA = startStack.length
+  let indexLA = startLA-1
+  //console.log("This is the index at the end of StartStack " + indexLA);
+  let valueStartStack = startStack[indexLA] 
+  console.log(typeof(valueStartStack));
+
+  endStack = stacks[endStack]
+  //console.log("this is the " + endStack);
+  //console.log(endStack.length);
+  let endLA = endStack.length
+  let indexEndLA = endLA-1
+  //console.log("This is the index at the end of endStack " + indexEndLA);
+  let valueEndStack = endStack[indexEndLA] 
+  console.log(valueEndStack);
+
+if(valueStartStack < valueEndStack || valueEndStack == undefined){
+
+  return true
+}
+else if(valueStartStack > valueEndStack){
+  console.log("That's not a legal move, please try again");
+  return false
 }
 }
 
-let isLegal = isLegal();
+
+
 
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
@@ -99,13 +128,19 @@ const checkForWin = () => {
 // When is this function called? What should it do with its argument?
 const towersOfHanoi = (startStack, endStack) => {
   // Your code here
+  console.log(isLegal(startStack, endStack));
+  if(isLegal(startStack, endStack)){
+     movePiece(startStack, endStack)
+  }
 
 }
 
 const getPrompt = () => {
   printStacks();
   rl.question('start stack: ', (startStack) => {
+    startStack = startStack.trim()
     rl.question('end stack: ', (endStack) => {
+      endStack = endStack.trim()
       towersOfHanoi(startStack, endStack);
       getPrompt();
     });
@@ -122,7 +157,6 @@ if (typeof describe === 'function') {
       assert.deepEqual(stacks, { a: [4, 3, 2], b: [1], c: [] });
     });
   });
-
   describe('#isLegal()', () => {
     it('should not allow an illegal move', () => {
       stacks = {
@@ -149,9 +183,19 @@ if (typeof describe === 'function') {
       assert.equal(checkForWin(), false);
     });
   });
+  //-------------It is suppose to check if the startStack and end stack are taking the inputs with spaces around them.--> Not working
+  describe('#getPrompt()', (startStack) => {
+    it('should not allow space(s) on input', () => {
+      startStack == startStack.trim();
+      assert.equal(getPrompt(), true);
+      startStack == startStack
+      assert.equal(getPrompt(), false) 
+    })
+  })
 
 } else {
 
   getPrompt();
 
 }
+
