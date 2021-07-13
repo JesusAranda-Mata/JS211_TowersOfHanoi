@@ -53,7 +53,10 @@ for (let pv = 0; pv < place.length; pv++){
 
 // Next, what do you think this function should do?
 /*
-* 
+* Takes in a string and stores it in variable starkStack and the same process happens with endStack
+*startStack becomes the key for the object stacks
+*when the proper key i use on startStack the method pop will take a last value on the key storing it in var fromMove
+*Method push is use to place the value of the key from the pop to the last place on the key. 
 */
 const movePiece = (startStack, endStack) => {
   //Code here
@@ -64,14 +67,21 @@ const movePiece = (startStack, endStack) => {
   let fromMove = startStack.pop()
   //console.log("the last value of an array" + fromMove);
   endStack.push(fromMove)
-  //console.log(toMove);
+  //console.log(toMove);---This was use to check if push was working.
 }
+/*
+*The idea of the letter function was to only allow a b or c when inputted in startStack or endStack   
+*/
 
-
-
-// let a = stacks[a]
-// let b = stacks[b]
-// let c = stacks[c]
+const letter = () => {
+  if ((startStack == 'a' || startStack == 'b' || startStack == 'c') && (endStack == 'a' || endStack == 'b' || endStack == 'c')){
+  return true
+  }
+  else {
+    console.log("Most use the correct characters a, b or c")
+      return false
+  }
+}
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
 /**
@@ -81,7 +91,7 @@ const movePiece = (startStack, endStack) => {
 const isLegal = (startStack, endStack) => {
   // Your code here
   startStack = stacks[startStack]
-  //console.log("this is the startStack" + startStack);
+  console.log("this is the startStack" + startStack);
   //console.log(startStack.length);
   let startLA = startStack.length
   let indexLA = startLA-1
@@ -112,10 +122,11 @@ else if(valueStartStack > valueEndStack){
 
 
 // What is a win in Towers of Hanoi? When should this function run?
-const checkForWin = () => {
+const checkForWin = (startStack, endStack) => {
   // Your code here
-  if((stacks.a[0] == 4 && stacks.a[1] == 3 && stacks.a[2] == 2 && stacks.a[3] == 1) || 
-     (stacks.b[0] == 4 && stacks.b[1] == 3 && stacks.b[2] == 2 && stacks.b[3] == 1) ||
+  startStack = stacks[startStack]
+  endStack = stacks[endStack]
+  if((stacks.b[0] == 4 && stacks.b[1] == 3 && stacks.b[2] == 2 && stacks.b[3] == 1) ||
      (stacks.c[0] == 4 && stacks.c[1] == 3 && stacks.c[2] == 2 && stacks.c[3] == 1)) {
       console.log("You Won!!!!!"); 
       return true
@@ -142,6 +153,7 @@ const getPrompt = () => {
     rl.question('end stack: ', (endStack) => {
       endStack = endStack.trim()
       towersOfHanoi(startStack, endStack);
+      //letter(startStack, endStack)
       getPrompt();
     });
   });
