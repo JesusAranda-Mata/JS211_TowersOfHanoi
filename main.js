@@ -17,8 +17,8 @@ const rl = readline.createInterface({
         // * 1 is the smallest
 
 let stacks = {
-  a: [1],
-  b: [4,3,2],
+  a: [4,3,2,1],
+  b: [],
   c: []
 };
 
@@ -85,14 +85,15 @@ const letter = (startStack, endStack) => {
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
 /**
- * If move is allow check for win
- * if not allow request a legal move 
+ * Checks that if the input string is allow
+ * pulls the last value from the array corresponding with its input from startStack and EndStack 
+ * if the value of the key is less than undefined or less than the last key value then allow it if is greater is not a legal move.  
  */
 const isLegal = (startStack, endStack) => {
   // Your code here
   const goodLetter = letter(startStack, endStack)
   if(!goodLetter){
-    console.log("That's not right!");
+    //console.log("That's not right!");
     return false
   }
   startStack = stacks[startStack]
@@ -124,6 +125,7 @@ else if(valueStartStack > valueEndStack){
 }
 
 // What is a win in Towers of Hanoi? When should this function run?
+//The key values most be on a specific order and in a different array than the original.  
 const checkForWin = (startStack, endStack) => {
   // Your code here
   //startStack = stacks[startStack]
@@ -139,15 +141,14 @@ const checkForWin = (startStack, endStack) => {
 }
 
 // When is this function called? What should it do with its argument?
+//calls and check if the function is legal returns as true 
+// if is true calls the function movePiece
 const towersOfHanoi = (startStack, endStack) => {
   // Your code here
   //console.log(isLegal(startStack, endStack));
-  //const winChecker = checkForWin()
   if (isLegal(startStack, endStack)) {
     movePiece(startStack, endStack)
-    let winChecker = checkForWin()
   }
-  
 }
 
 // check if the move is isLegal
@@ -163,7 +164,8 @@ else{
   getPrompt();
 }
 */
-
+//-----
+//Takes the string inputs and executes the game in till the function checkForWin returns as true. 
 const getPrompt = () => {
   printStacks();
   rl.question('start stack: ', (startStack) => {
@@ -218,7 +220,7 @@ if (typeof describe === 'function') {
       assert.equal(checkForWin(), false);
     });
   });
-  //-------------It is suppose to check if the startStack and end stack are taking the inputs with spaces around them.--> Not working
+  /*-------------It is suppose to check if the startStack and end stack are taking the inputs with spaces around them.--> Not working
   describe('#getPrompt()', (startStack) => {
     it('should not allow space(s) on input', () => {
       startStack == startStack.trim();
@@ -231,6 +233,6 @@ if (typeof describe === 'function') {
 } else {
 
   getPrompt();
-
+*/
 }
 
