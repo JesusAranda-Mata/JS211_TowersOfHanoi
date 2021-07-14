@@ -17,8 +17,8 @@ const rl = readline.createInterface({
         // * 1 is the smallest
 
 let stacks = {
-  a: [4, 3, 2, 1],
-  b: [],
+  a: [1],
+  b: [4,3,2],
   c: []
 };
 
@@ -73,7 +73,7 @@ const movePiece = (startStack, endStack) => {
 *The idea of the letter function was to only allow a b or c when inputted in startStack or endStack   
 */
 
-const letter = () => {
+const letter = (startStack, endStack) => {
   if ((startStack == 'a' || startStack == 'b' || startStack == 'c') && (endStack == 'a' || endStack == 'b' || endStack == 'c')){
   return true
   }
@@ -90,6 +90,11 @@ const letter = () => {
  */
 const isLegal = (startStack, endStack) => {
   // Your code here
+  const goodLetter = letter(startStack, endStack)
+  if(!goodLetter){
+    console.log("That's not right!");
+    return false
+  }
   startStack = stacks[startStack]
   console.log("this is the startStack" + startStack);
   //console.log(startStack.length);
@@ -118,14 +123,11 @@ else if(valueStartStack > valueEndStack){
 }
 }
 
-
-
-
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = (startStack, endStack) => {
   // Your code here
-  startStack = stacks[startStack]
-  endStack = stacks[endStack]
+  //startStack = stacks[startStack]
+  //endStack = stacks[endStack]
   if((stacks.b[0] == 4 && stacks.b[1] == 3 && stacks.b[2] == 2 && stacks.b[3] == 1) ||
      (stacks.c[0] == 4 && stacks.c[1] == 3 && stacks.c[2] == 2 && stacks.c[3] == 1)) {
       console.log("You Won!!!!!"); 
@@ -139,12 +141,28 @@ const checkForWin = (startStack, endStack) => {
 // When is this function called? What should it do with its argument?
 const towersOfHanoi = (startStack, endStack) => {
   // Your code here
-  console.log(isLegal(startStack, endStack));
-  if(isLegal(startStack, endStack)){
-     movePiece(startStack, endStack)
+  //console.log(isLegal(startStack, endStack));
+  //const winChecker = checkForWin()
+  if (isLegal(startStack, endStack)) {
+    movePiece(startStack, endStack)
+    let winChecker = checkForWin()
   }
-
+  
 }
+
+// check if the move is isLegal
+// if it is move the pc
+// check if win
+
+/*
+if(checkForWin()){
+  printStacks();
+  return console.log('Success!!')
+}
+else{
+  getPrompt();
+}
+*/
 
 const getPrompt = () => {
   printStacks();
@@ -154,7 +172,12 @@ const getPrompt = () => {
       endStack = endStack.trim()
       towersOfHanoi(startStack, endStack);
       //letter(startStack, endStack)
+      if(checkForWin()){
+        return
+      }
+      else{
       getPrompt();
+      }
     });
   });
 }
